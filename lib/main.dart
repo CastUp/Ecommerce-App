@@ -1,4 +1,6 @@
 import 'package:ecommerce/consts/theme_data.dart';
+import 'package:ecommerce/inner_screens/brands_navigation_rail.dart';
+import 'package:ecommerce/inner_screens/brands_rail_widget.dart';
 import 'package:ecommerce/provider/dark_theme_provider.dart';
 import 'package:ecommerce/screens/bottom_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,6 +46,9 @@ class _MyAppState extends State<MyApp> {
       => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: Styles.themeData(provider.darkTheme, context),
+          routes: {
+            BrandNavigationRailScreen.routeName : (_)=>BrandNavigationRailScreen()
+          },
           home: BottomBarScreen()),
     );
   }

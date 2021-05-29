@@ -1,4 +1,6 @@
 import 'package:ecommerce/consts/colors.dart';
+import 'package:ecommerce/inner_screens/brands_navigation_rail.dart';
+import 'package:ecommerce/inner_screens/brands_rail_widget.dart';
 import 'package:ecommerce/widgets/category.dart';
 import 'package:ecommerce/widgets/popular_product.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:toast/toast.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,6 +16,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
+
   List<String> _carouselIcons = [
     'assets/images/carousel1.png',
     'assets/images/carousel2.jpeg',
@@ -65,85 +71,82 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackdropScaffold(
-          frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: BackdropAppBar(
-            title: Text(
-              "Home",
-              style: TextStyle(color: Colors.white),
+        frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: BackdropAppBar(
+          title: Text(
+            "Home",
+            style: TextStyle(color: Colors.white),
+          ),
+          elevation: 5,
+          backgroundColor: Colors.indigo,
+          leading: BackdropToggleButton(
+            icon: AnimatedIcons.home_menu,
+          ),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  ColorsConsts.starterColor,
+                  ColorsConsts.endColor,
+                ])),
+          ),
+          actions: [
+            IconButton(
+              iconSize: 17,
+              padding: EdgeInsets.all(5),
+              icon: CircleAvatar(
+                radius: 18,
+                backgroundColor: Colors.white,
+                child: CircleAvatar(
+                  radius: 17,
+                  backgroundImage:
+                  NetworkImage("https://m.3bir.net/files/33420.jpg"),
+                ),
+              ),
+              onPressed: () {},
             ),
-            elevation: 5,
-            backgroundColor: Colors.indigo,
-            leading: BackdropToggleButton(
-              icon: AnimatedIcons.home_menu,
-            ),
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                ColorsConsts.starterColor,
-                ColorsConsts.endColor,
-              ])),
-            ),
-            actions: [
-              IconButton(
-                iconSize: 17,
-                padding: EdgeInsets.all(5),
-                icon: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    radius: 17,
-                    backgroundImage:
-                        NetworkImage("https://m.3bir.net/files/33420.jpg"),
+          ],
+        ),
+        headerHeight: MediaQuery.of(context).size.height * .28,
+        frontLayerBorderRadius: BorderRadius.circular(0),
+        frontLayer: Container(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * .30,
+                  child: Carousel(
+                    boxFit: BoxFit.fill,
+                    autoplay: true,
+                    animationCurve: Curves.fastOutSlowIn,
+                    animationDuration: Duration(milliseconds: 1000),
+                    dotSize: 5.0,
+                    dotIncreasedColor: Colors.purple,
+                    dotBgColor: Colors.black.withOpacity(0.2),
+                    dotPosition: DotPosition.bottomCenter,
+                    dotSpacing: 15,
+                    showIndicator: true,
+                    indicatorBgPadding: 8.0,
+                    images: [
+                      ..._carouselIcons.map((e) => Image.asset(e, fit: BoxFit.fill,)),
+                    ].toList(),
                   ),
                 ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          headerHeight: MediaQuery.of(context).size.height * .28,
-          frontLayerBorderRadius: BorderRadius.circular(0),
-          frontLayer: Container(
-            width: double.infinity,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(bottom: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * .30,
-                    child: Carousel(
-                      boxFit: BoxFit.fill,
-                      autoplay: true,
-                      animationCurve: Curves.fastOutSlowIn,
-                      animationDuration: Duration(milliseconds: 1000),
-                      dotSize: 5.0,
-                      dotIncreasedColor: Colors.purple,
-                      dotBgColor: Colors.black.withOpacity(0.2),
-                      dotPosition: DotPosition.bottomCenter,
-                      dotSpacing: 15,
-                      showIndicator: true,
-                      indicatorBgPadding: 8.0,
-                      images: [
-                        ..._carouselIcons.map((e) => Image.asset(
-                              e,
-                              fit: BoxFit.fill,
-                            )),
-                      ],
-                    ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                  child: Text(
+                    "Catigories",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w800, fontSize: 20),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    child: Text(
-                     "Catigories",
-                     style: TextStyle(
-                         fontWeight: FontWeight.w800, fontSize: 20),
-                   ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                      height: MediaQuery.of(context).size.height*.25,
-                    child: ListView.builder(
+                ),
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height*.25,
+                  child: ListView.builder(
                       itemCount: categories.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (_,index)
@@ -152,95 +155,93 @@ class _HomeState extends State<Home> {
                         child: CategoryWidget(index:index,categories: categories,),
                         onTap: (){},
                       )
-                    ),
                   ),
-                  Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: <Widget>[
-                       Text(
-                         "Popular Brands",
-                         style: TextStyle(
-                             fontWeight: FontWeight.w800, fontSize: 20),
-                       ),
-                       Spacer(),
-                       InkWell(
-                         child: Text(
-                           "View all..",
-                           style: TextStyle(
-                               color: Colors.red,
-                               fontWeight: FontWeight.w800,
-                               fontSize: 15),
-                         ),
-                         onTap: () {},
-                       ),
-                     ],
-                   ),
-                  ),
-                  Container(
-                   width: MediaQuery.of(context).size.width * .95,
-                   height: MediaQuery.of(context).size.height * .28,
-                   child: Swiper(
-                     itemCount: _brandImages.length,
-                     autoplay: true,
-                     viewportFraction: 0.8,
-                     scale: 0.9,
-                     itemBuilder: (_, index) {
-                       return ClipRRect(
-                         borderRadius: BorderRadius.circular(5),
-                         child: Container(
-                           color: Colors.blueGrey,
-                           child: Image.asset(
-                             _brandImages[index],
-                             fit: BoxFit.fill,
-                           ),
-                         ),
-                       );
-                     },
-                   ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          "Popular Products",
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Popular Brands",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800, fontSize: 20),
+                      ),
+                      Spacer(),
+                      InkWell(
+                        child: Text(
+                          "View all..",
                           style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 20),
+                              color: Colors.red,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 15),
                         ),
-                        Spacer(),
-                        InkWell(
-                          child: Text(
-                            "View all..",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15),
-                          ),
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
+                        onTap: () {},
+                      ),
+                    ],
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height*.43,
-                    margin: EdgeInsets.symmetric(horizontal: 3),
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      separatorBuilder: (_,spase)
-                      => SizedBox(width: 5,),
-                      itemCount: 5,
-                      itemBuilder: (_,index)
-                      => PopularProduct(),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * .95,
+                  height: MediaQuery.of(context).size.height * .28,
+                  child: Swiper(
+                    itemCount: _brandImages.length,
+                    autoplay: true,
+                    viewportFraction: 0.8,
+                    scale: 0.9,
+                    itemBuilder: (_, index)
+                    =>ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Container(
+                        color: Colors.blueGrey,
+                        child: Image.asset(_brandImages[index], fit: BoxFit.fill,),
+                      ),
                     ),
-                  )
-                ],
-              ),
+                    onTap: (index)
+                    => Navigator.of(context).pushNamed(BrandNavigationRailScreen.routeName,arguments: {"ID":index}),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Popular Products",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800, fontSize: 20),
+                      ),
+                      Spacer(),
+                      InkWell(
+                        child: Text(
+                          "View all..",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 15),
+                        ),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height*.43,
+                  margin: EdgeInsets.symmetric(horizontal: 3),
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    separatorBuilder: (_,spase)
+                    => SizedBox(width: 5,),
+                    itemCount: 5,
+                    itemBuilder: (_,index)
+                    => PopularProduct(),
+                  ),
+                ),
+              ],
             ),
           ),
-          backLayer: Center(),
+        ),
+        backLayer: Center(),
       ),
     );
   }

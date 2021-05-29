@@ -23,7 +23,7 @@ class PopularProduct extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(topRight: Radius.circular(4),topLeft: Radius.circular(4)),
                     image: DecorationImage(
-                      image: NetworkImage("https://lh3.googleusercontent.com/proxy/jVn_50qhqEJ3pajXVoY1NgxXJUBmomMZXVqNI1tAdv2yhVZ5E_bf4g5aH-x_5ARKDIIOubTp4iYcuYjvHO7Ta8BVP-34xBA7KamNo_sPkMv_"),
+                      image: NetworkImage("https://lh3.googleusercontent.com/proxy/xTP3KmsL3E9P48-NLtAUMmen35x3aUS4m3NxxEzUbuk_7f_5HEE_jLU0-K20c-o8Cjm676O-tqM6IgMG1NmflAveiho4XCCwzqIL_eE"),
                       fit: BoxFit.fill,
                     ),
                   ),
