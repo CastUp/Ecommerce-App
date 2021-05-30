@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Feeds extends StatelessWidget {
+  static const routeName = '/feeds';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

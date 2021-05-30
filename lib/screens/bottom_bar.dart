@@ -59,11 +59,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               selectedItemColor: Colors.purple,
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                    icon: Icon(IconsData.HOME,color: Theme.of(context).textSelectionTheme.selectionColor,),
+                    icon: Icon(MyAppIcons.HOME,color: Theme.of(context).textSelectionTheme.selectionColor,),
                     label: "Home"
                   ),
                 BottomNavigationBarItem(
-                    icon: Icon(IconsData.RSS,color: Theme.of(context).textSelectionTheme.selectionColor,),
+                    icon: Icon(MyAppIcons.RSS,color: Theme.of(context).textSelectionTheme.selectionColor,),
                     label: "Feeds"
                 ),
                 BottomNavigationBarItem(
@@ -72,11 +72,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                     label: "Search",
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(IconsData.BAG,color: Theme.of(context).textSelectionTheme.selectionColor,),
+                    icon: Icon(MyAppIcons.BAG,color: Theme.of(context).textSelectionTheme.selectionColor,),
                     label: "Shopping"
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(IconsData.USRE,color: Theme.of(context).textSelectionTheme.selectionColor,),
+                    icon: Icon(MyAppIcons.USRE,color: Theme.of(context).textSelectionTheme.selectionColor,),
                     label: "User",
                 ),
               ],
@@ -92,7 +92,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           highlightElevation: 10,
           elevation: 4,
           splashColor: Colors.grey,
-          child: Icon(IconsData.SEARCH),
+          child: Icon(MyAppIcons.SEARCH),
           onPressed: ()=> setState(()=> _selectedPageIndex = 2),
         ),
       ),

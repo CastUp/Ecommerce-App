@@ -1,5 +1,8 @@
 import 'package:ecommerce/consts/colors.dart';
+import 'package:ecommerce/consts/myIcons.dart';
 import 'package:ecommerce/provider/dark_theme_provider.dart';
+import 'package:ecommerce/screens/cart.dart';
+import 'package:ecommerce/screens/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -115,6 +118,35 @@ class _UserInfoState extends State<UserInfo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0 , top: 15),
+                      child: _User(text: "User Bag"),
+                    ),
+                    Divider(thickness: 1,color: Colors.grey,),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                          title: Text("WishList"),
+                          leading: Icon(MyAppIcons.WISHLIST,color: Colors.red,),
+                          trailing: Icon(Icons.chevron_right_outlined),
+                          onTap: ()=>Navigator.of(context).pushNamed(WishList.routeName),
+                        ),
+                      ),
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                            title: Text("Cart"),
+                            leading: Icon(MyAppIcons.CART,color: Colors.blue,),
+                            trailing: Icon(Icons.chevron_right_outlined),
+                            onTap: ()=>Navigator.of(context).pushNamed(Cart.routeName),
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0 , top: 15),
                       child: _User(text: "User Information"),

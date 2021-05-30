@@ -1,6 +1,7 @@
 import 'package:ecommerce/consts/colors.dart';
 import 'package:ecommerce/inner_screens/brands_navigation_rail.dart';
 import 'package:ecommerce/inner_screens/brands_rail_widget.dart';
+import 'package:ecommerce/widgets/backLayer.dart';
 import 'package:ecommerce/widgets/category.dart';
 import 'package:ecommerce/widgets/popular_product.dart';
 import 'package:flutter/cupertino.dart';
@@ -241,7 +242,7 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        backLayer: Center(),
+        backLayer: BackLayerMenu(),
       ),
     );
   }

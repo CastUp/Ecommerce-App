@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 
 class Cart extends StatelessWidget {
+
+  static const routeName = '/cart';
   List products = [];
 
   @override
