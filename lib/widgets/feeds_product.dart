@@ -1,3 +1,4 @@
+import 'package:ecommerce/models/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
@@ -5,14 +6,23 @@ import 'package:badges/badges.dart';
 
 
 class FeedProducts extends StatefulWidget {
+
+  final double width ;
+  final int  index ;
+  final List<Product> listProduct ;
+  FeedProducts({this.width, this.listProduct, this.index,});
   @override
   _FeedProductsState createState() => _FeedProductsState();
 }
 
 class _FeedProductsState extends State<FeedProducts> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: widget.width ?? 0,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           color: Theme.of(context).backgroundColor
@@ -25,15 +35,11 @@ class _FeedProductsState extends State<FeedProducts> {
               ClipRRect(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(4),topRight: Radius.circular(4)),
                 child: Container(
-                  width: double.infinity,
                   constraints: BoxConstraints(
                     minHeight: 100 ,
                     maxHeight: MediaQuery.of(context).size.height*.30,
                   ),
-                  child: Image.network(
-                    "https://website-alroeya.s3.eu-central-1.amazonaws.com/uploads/images/2020/08/13/898287.jpg",
-                    fit: BoxFit.fill,
-                  ),
+                  child: Image.network(widget.listProduct[widget.index].imageUrl, fit: BoxFit.fill,),
                 ),
               ),
               Positioned(
@@ -58,7 +64,7 @@ class _FeedProductsState extends State<FeedProducts> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: 5,),
-                Text("Description",
+                Text(widget.listProduct[widget.index].title,
                   softWrap: false,
                   maxLines: 2,
                   overflow: TextOverflow.fade,
@@ -66,7 +72,7 @@ class _FeedProductsState extends State<FeedProducts> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Text("\$ 256.52",
+                  child: Text("\$ ${widget.listProduct[widget.index].price.toString()}",
                     softWrap: false,
                     maxLines: 2,
                     overflow: TextOverflow.fade,
@@ -76,7 +82,7 @@ class _FeedProductsState extends State<FeedProducts> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Quantity: 12",
+                    Text(widget.listProduct[widget.index].quantity.toString(),
                       softWrap: false,
                       maxLines: 2,
                       overflow: TextOverflow.fade,
