@@ -12,4 +12,5 @@ class MyAppIcons{
   static IconData TRASH      = Feather.trash ;
   static IconData WISHLIST   = Feather.heart ;
   static IconData UPLOAD     = Feather.upload ;
+  static IconData PAYMENT    = Icons.credit_card_sharp ;
 }

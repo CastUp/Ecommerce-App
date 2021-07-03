@@ -1,10 +1,18 @@
+import 'package:ecommerce/inner_screens/product_details.dart';
+import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/screens/feeds.dart';
 import 'package:flutter/material.dart';
 
 class BrandsNavigationRail extends StatelessWidget {
+
+  final List<Product> listBrand;
+  final int index ;
+  BrandsNavigationRail({@required this.listBrand, @required this.index});
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: ()=> Navigator.of(context).pushNamed(ProductDetails.routeName , arguments: {"ID":index , "listProduct": listBrand}),
       child: Container(
         padding: EdgeInsets.only(left: 5,right: 5),
         margin: EdgeInsets.only(right: 20 , top: 18,bottom: 5),
@@ -19,7 +27,7 @@ class BrandsNavigationRail extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(context).backgroundColor,
                   image: DecorationImage(
-                      image: NetworkImage('http://arabic.worldshopwarehouse.com/img/p/1/76632-large_default.jpg',), fit: BoxFit.fitWidth),
+                      image: NetworkImage(listBrand[index].imageUrl,), fit: BoxFit.fitWidth),
                   border: Border.all(width: 2,color: Colors.white),
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   boxShadow: [
@@ -48,13 +56,13 @@ class BrandsNavigationRail extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('title',
+                    Text(listBrand[index].title,
                       maxLines: 2, style: TextStyle(fontWeight: FontWeight.w700, color: Theme.of(context).textSelectionTheme.selectionColor),),
                     SizedBox(
                       height: 20.0,
                     ),
                     FittedBox(
-                      child: Text('US 16 \$', maxLines: 1,
+                      child: Text('\$${listBrand[index].price}', maxLines: 1,
                           style: TextStyle(
                             color: Colors.red,
                             fontSize: 30.0,
@@ -64,7 +72,7 @@ class BrandsNavigationRail extends StatelessWidget {
                       height: 20.0,
                     ),
                     FittedBox(
-                      child: Text('CatergoryName', style: TextStyle(color: Colors.grey, fontSize: 18.0),maxLines: 1,),
+                      child: Text('${listBrand[index].productCategoryName}', style: TextStyle(color: Colors.grey, fontSize: 18.0),maxLines: 1,),
                     ),
                     SizedBox(
                       height: 20.0,

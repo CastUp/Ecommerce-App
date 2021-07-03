@@ -1,41 +1,71 @@
 {
   "project_info": {
-    "project_number": "780453894080",
-    "project_id": "e-commerce-8738d",
-    "storage_bucket": "e-commerce-8738d.appspot.com"
+    "project_number": "74090115399",
+    "firebase_url": "https://payments-2d7f0-default-rtdb.firebaseio.com",
+    "project_id": "payments-2d7f0",
+    "storage_bucket": "payments-2d7f0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:780453894080:android:b745432fcc999f61a9da25",
+        "mobilesdk_app_id": "1:74090115399:android:a332e30a692698c3279c62",
         "android_client_info": {
           "package_name": "com.castup.ecommerce"
         }
       },
       "oauth_client": [
         {
-          "client_id": "780453894080-d4v332o3q7rr47rumc76p71afmfn2r6s.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.castup.ecommerce",
-            "certificate_hash": "b415498a4d58c1bdce134d38eecc96dd890c91a0"
-          }
-        },
-        {
-          "client_id": "780453894080-lcv2r8i60vco7l4e0p74tmrj4vlvs63c.apps.googleusercontent.com",
+          "client_id": "74090115399-e0co0t0eivto0skns4i4kbtlrrnmbuhe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBrkBvW9HVuBY5A5CmKcj00QcMJ4sA_JeM"
+          "current_key": "AIzaSyBVRgLoAZa5y3W1dWEY6CXBBO7zMSSFEx4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "780453894080-lcv2r8i60vco7l4e0p74tmrj4vlvs63c.apps.googleusercontent.com",
+              "client_id": "74090115399-e0co0t0eivto0skns4i4kbtlrrnmbuhe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74090115399:android:b80cccfaad6978b0279c62",
+        "android_client_info": {
+          "package_name": "com.castup.starpi_payment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74090115399-36copk6ga3oo85k7fhva2qb2m0017tfd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.castup.starpi_payment",
+            "certificate_hash": "8129b70b51125165f6a54f36f1f599f73226fa3f"
+          }
+        },
+        {
+          "client_id": "74090115399-e0co0t0eivto0skns4i4kbtlrrnmbuhe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVRgLoAZa5y3W1dWEY6CXBBO7zMSSFEx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74090115399-e0co0t0eivto0skns4i4kbtlrrnmbuhe.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

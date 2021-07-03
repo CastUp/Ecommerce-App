@@ -1,6 +1,8 @@
 import 'package:ecommerce/consts/colors.dart';
 import 'package:ecommerce/inner_screens/brands_navigation_rail.dart';
-import 'package:ecommerce/inner_screens/brands_rail_widget.dart';
+import 'package:ecommerce/inner_screens/categoriesFeeds.dart';
+import 'package:ecommerce/provider/products.dart';
+import 'package:ecommerce/screens/feeds.dart';
 import 'package:ecommerce/widgets/backLayer.dart';
 import 'package:ecommerce/widgets/category.dart';
 import 'package:ecommerce/widgets/popular_product.dart';
@@ -9,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
 class Home extends StatefulWidget {
@@ -70,6 +73,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: BackdropScaffold(
         frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -154,7 +158,7 @@ class _HomeState extends State<Home> {
                       => InkWell(
                         borderRadius: BorderRadius.circular(5),
                         child: CategoryWidget(index:index,categories: categories,),
-                        onTap: (){},
+                        onTap: ()=>Navigator.of(context).pushNamed(CategoriesFeeds.routeName,arguments: {"categoryName":categories[index]["categoryName"]}),
                       )
                   ),
                 ),
@@ -198,8 +202,7 @@ class _HomeState extends State<Home> {
                         child: Image.asset(_brandImages[index], fit: BoxFit.fill,),
                       ),
                     ),
-                    onTap: (index)
-                    => Navigator.of(context).pushNamed(BrandNavigationRailScreen.routeName,arguments: {"ID":index}),
+                    onTap: (index) => Navigator.of(context).pushNamed(BrandNavigationRailScreen.routeName,arguments: {"ID":index}),
                   ),
                 ),
                 Padding(
@@ -221,21 +224,24 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.w800,
                               fontSize: 15),
                         ),
-                        onTap: () {},
+                        onTap: ()=> Navigator.of(context).pushNamed(Feeds.routeName, arguments: "popular"),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height*.43,
-                  margin: EdgeInsets.symmetric(horizontal: 3),
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (_,spase)
-                    => SizedBox(width: 5,),
-                    itemCount: 5,
-                    itemBuilder: (_,index)
-                    => PopularProduct(),
+                Consumer<Products>(
+                  builder: (contexts , value , child)
+                  =>Container(
+                    height: MediaQuery.of(context).size.height*.43,
+                    margin: EdgeInsets.symmetric(horizontal: 3),
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (_,spase)
+                      => SizedBox(width: 5,),
+                      itemCount:value.popularProduct.length,
+                      itemBuilder: (_,index)
+                      => PopularProduct(index: index,listPopular: value.popularProduct,),
+                    ),
                   ),
                 ),
               ],

@@ -1,12 +1,18 @@
+
 import 'package:badges/badges.dart';
 import 'package:ecommerce/consts/colors.dart';
 import 'package:ecommerce/consts/myIcons.dart';
+import 'package:ecommerce/models/Favs_Attr.dart';
+import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/provider/Cart_Provider.dart';
+import 'package:ecommerce/provider/FavsProvider.dart';
 import 'package:ecommerce/provider/dark_theme_provider.dart';
+import 'package:ecommerce/provider/products.dart';
 import 'package:ecommerce/screens/cart.dart';
 import 'package:ecommerce/screens/wishlist.dart';
-import 'package:ecommerce/widgets/cart_full.dart';
 import 'package:ecommerce/widgets/feeds_product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -25,6 +31,11 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
 
     final themeState = Provider.of<DarkThemeProvider>(context);
+    //
+    Map<String , dynamic> product = ModalRoute.of(context).settings.arguments as Map<String , dynamic>;
+    //
+    List<Product> listProduct = product["listProduct"];
+    int index = product["ID"];
 
     return Scaffold(
       body: Stack(
@@ -36,7 +47,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             foregroundDecoration: BoxDecoration(
               color: Colors.black12,
             ),
-            child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4PdHtXka2-bDDww6Nuect3Mt9IwpE4v4HNw&usqp=CAU',),
+            child: Image.network(listProduct[index].imageUrl,),
           ),
           SingleChildScrollView(
             padding: EdgeInsets.only(top: 16,bottom: 20),
@@ -84,7 +95,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.9,
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Text('title', maxLines: 2, style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w600,),
+                        child: Text(listProduct[index].title, maxLines: 2, style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w600,),
                         ),
                       ),
                       SizedBox(
@@ -92,7 +103,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: Text('US \$ 15', style: TextStyle(color: themeState.darkTheme ? Theme.of(context).disabledColor : ColorsConsts.subTitle,
+                        child: Text("\$ ${listProduct[index].price}", style: TextStyle(color: themeState.darkTheme ? Theme.of(context).disabledColor : ColorsConsts.subTitle,
                               fontWeight: FontWeight.bold,
                               fontSize: 21.0),
                         ),
@@ -108,7 +119,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          'Description',
+                          listProduct[index].description,
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 21.0,
@@ -127,10 +138,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           height: 1,
                         ),
                       ),
-                      _details(themeState.darkTheme, 'Brand: ', 'BrandName'),
-                      _details(themeState.darkTheme, 'Quantity: ', '12 Left'),
-                      _details(themeState.darkTheme, 'Category: ', 'Cat Name'),
-                      _details(themeState.darkTheme, 'Popularity: ', 'Popular'),
+                      _details(themeState.darkTheme, 'Brand: ', listProduct[index].brand),
+                      _details(themeState.darkTheme, 'Quantity: ', listProduct[index].quantity.toString()),
+                      _details(themeState.darkTheme, 'Category: ', listProduct[index].productCategoryName),
+                      _details(themeState.darkTheme, 'Popularity: ', listProduct[index].isPopular?'Popular':""),
                       SizedBox(
                         height: 15,
                       ),
@@ -193,15 +204,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Container(
                   margin: EdgeInsets.only(bottom: 40),
                   width: double.infinity,
-                  height: 200,
+                  height: 250,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 7,
+                    itemCount: Provider.of<Products>(context).products.length,
                     itemBuilder: (_,index)
                     => Container(
                       child: InkWell(
-                          child: FeedProducts(width: MediaQuery.of(context).size.width*.45),
-                        onTap: ()=> Navigator.of(context).pushReplacementNamed(ProductDetails.routeName),
+                          child: FeedProducts(width: MediaQuery.of(context).size.width*.45,
+                            listProduct: Provider.of<Products>(context).products,index: index,),
+                        onTap: ()=> Navigator.of(context).pushReplacementNamed(ProductDetails.routeName,arguments: {"ID":index , "listProduct":Provider.of<Products>(context,listen: false).products}),
                       ),
                       margin: EdgeInsets.symmetric(horizontal: 5),
                     ),
@@ -224,26 +236,44 @@ class _ProductDetailsState extends State<ProductDetails> {
                   TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 actions: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      MyAppIcons.WISHLIST,
-                      color: ColorsConsts.favColor,
+                  Badge(
+                    badgeColor: ColorsConsts.favBadgeColor,
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    elevation: 3,
+                    animationDuration: Duration(seconds: 3),
+                    badgeContent: Text(Provider.of<FavsProvider>(context).listFavsItems.length.toString() ,style: TextStyle(color: Colors.white),),
+                    position: BadgePosition(top: 5,end: 7),
+                    child: IconButton(
+                      icon: Icon(
+                        MyAppIcons.WISHLIST,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(WishList.routeName);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(WishList.routeName);
-                    },
                   ),
-                  IconButton(
-                    icon: Icon(
-                      MyAppIcons.CART,
-                      color: ColorsConsts.cartColor,
+                  Badge(
+                    badgeColor: ColorsConsts.cartBadgeColor,
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    elevation: 3,
+                    animationDuration: Duration(seconds: 3),
+                    badgeContent: Text(Provider.of<CartProvider>(context).listCartItems.length.toString() ,style: TextStyle(color: Colors.white),),
+                    position: BadgePosition(top: 5,end: 7),
+                    child: IconButton(
+                      icon: Icon(
+                        MyAppIcons.CART,
+                        color: ColorsConsts.cartColor,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Cart.routeName);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(Cart.routeName);
-                    },
                   ),
                 ]),
-          ),
+          ) ,
           Align(
               alignment: Alignment.bottomCenter,
               child: Row(children: [
@@ -251,15 +281,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                   flex: 1,
                   child: Container(
                     height: 50,
-                    child: RaisedButton(
+                    child: RaisedButton (
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(side: BorderSide.none),
-                      color: Colors.redAccent.shade400,
-                      onPressed: () {},
-                      child: Text(
-                        'Add to Cart'.toUpperCase(),
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      color: Colors.black54,
+                      child: Text('Add to Cart'.toUpperCase(),
+                        style: TextStyle(fontSize: 15, color: Colors.white),maxLines: 1,overflow: TextOverflow.fade,softWrap: false,
                       ),
+                      onPressed: (){Provider.of<CartProvider>(context,listen: false)
+                            .addProductToCart(context,productId: listProduct[index].id , title: listProduct[index].title ,
+                            price: listProduct[index].price , imageUrl: listProduct[index].imageUrl);
+                      },
                     ),
                   ),
                 ),
@@ -302,11 +334,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                     height: 50,
                     child: InkWell(
                       splashColor: ColorsConsts.favColor,
-                      onTap: () {},
+                      onTap: ()=> Provider.of<FavsProvider>(context,listen: false)
+                                  .addProductToFavs(context,
+                                   productId: listProduct[index].id,
+                                   title: listProduct[index].title,
+                                   price: listProduct[index].price,
+                                   imageUrl: listProduct[index].imageUrl),
                       child: Center(
-                        child: Icon(
-                          MyAppIcons.WISHLIST,
-                          color: ColorsConsts.white,
+                        child: Icon(MyAppIcons.WISHLIST,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -345,6 +381,5 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
     );
   }
-
 
 }

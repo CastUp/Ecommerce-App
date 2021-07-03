@@ -23,10 +23,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: "^0.7.0"
-  cloud_firestore: "^0.16.0+1"
-  firebase_storage: "^7.0.0"
-  firebase_auth: "^0.20.1"
+  firebase_core: "^1.2.1"
+  cloud_firestore: "^2.2.1"
+  firebase_storage: "^8.1.1"
+  firebase_auth: "^1.3.0"
   provider: ^5.0.0
   toast:
   carousel_pro: ^1.0.0
@@ -37,6 +37,7 @@ dependencies:
   badges: ^2.0.1
   backdrop: ^0.6.1
   flutter_swiper: ^1.1.6
+  device_preview: ^0.7.3
 
 
   # The following adds the Cupertino Icons font to your application.

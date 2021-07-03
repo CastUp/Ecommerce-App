@@ -1,12 +1,13 @@
 import 'package:ecommerce/inner_screens/brands_rail_widget.dart';
+import 'package:ecommerce/provider/products.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BrandNavigationRailScreen extends StatefulWidget {
   static const routeName = '/brands_navigation_rail';
 
   @override
-  _BrandNavigationRailScreenState createState() =>
-      _BrandNavigationRailScreenState();
+  _BrandNavigationRailScreenState createState() => _BrandNavigationRailScreenState();
 }
 
 class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
@@ -17,11 +18,9 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
 
   @override
   void didChangeDependencies() {
-    Map<String, int> ID =
-        ModalRoute.of(context).settings.arguments as Map<String, int>;
+
+    Map<String, int> ID = ModalRoute.of(context).settings.arguments as Map<String, int>;
     _selectedIndex = ID["ID"];
-    routeArgs = ID["ID"].toString();
-    print(routeArgs.toString());
 
     if (_selectedIndex == 0) {
       setState(() {
@@ -50,7 +49,7 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
     }
     if (_selectedIndex == 5) {
       setState(() {
-        brand = 'Samsung';
+        brand = 'Samesong';
       });
     }
     if (_selectedIndex == 6) {
@@ -112,7 +111,7 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                         }
                         if (_selectedIndex == 5) {
                           setState(() {
-                            brand = 'Samsung';
+                            brand = 'Samesong';
                           });
                         }
                         if (_selectedIndex == 6) {
@@ -157,7 +156,7 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                       buildRotatedTextRailDestination("Dell", padding),
                       buildRotatedTextRailDestination("H&M", padding),
                       buildRotatedTextRailDestination("Nike", padding),
-                      buildRotatedTextRailDestination("Samsung", padding),
+                      buildRotatedTextRailDestination("Samesong", padding),
                       buildRotatedTextRailDestination("Huawei", padding),
                       buildRotatedTextRailDestination("All", padding),
                     ],
@@ -195,6 +194,8 @@ class ContentSpace extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
+    final productData = Provider.of<Products>(context).findByBrand(this.brand.toLowerCase());
+
     return Expanded(
       child: Padding(
         padding: EdgeInsets.fromLTRB(24, 8, 0, 0),
@@ -202,9 +203,9 @@ class ContentSpace extends StatelessWidget{
           removeTop: true,
           context: context,
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: productData.length,
             itemBuilder: (_,index)
-            => BrandsNavigationRail(),
+            => BrandsNavigationRail(index: index,listBrand: productData,),
           ),
         ),
       ),

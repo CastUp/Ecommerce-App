@@ -147,6 +147,18 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                       ),
                     ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                          title: Text("Payments"),
+                          leading: Icon(MyAppIcons.PAYMENT,color: Colors.blue,),
+                          trailing: Icon(Icons.chevron_right_outlined),
+                          onTap: ()=>null,
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0 , top: 15),
                       child: _User(text: "User Information"),

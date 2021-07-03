@@ -2,6 +2,7 @@ import 'package:ecommerce/models/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
+import 'package:toast/toast.dart';
 
 
 
@@ -16,7 +17,6 @@ class FeedProducts extends StatefulWidget {
 }
 
 class _FeedProductsState extends State<FeedProducts> {
-
 
 
   @override
@@ -94,7 +94,7 @@ class _FeedProductsState extends State<FeedProducts> {
                         child: Icon(Icons.more_horiz, color: Colors.grey,),
                         splashColor: Colors.yellow.shade300,
                         borderRadius: BorderRadius.circular(20),
-                        onTap: (){},
+                        onTap: (){Toast.show("${widget.index}", context);},
                       ),
                     )
                   ],
