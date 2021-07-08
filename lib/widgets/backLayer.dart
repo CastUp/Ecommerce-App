@@ -1,4 +1,5 @@
 import 'package:ecommerce/consts/colors.dart';
+import 'package:ecommerce/inner_screens/upload_product_form.dart';
 import 'package:ecommerce/screens/cart.dart';
 import 'package:ecommerce/screens/feeds.dart';
 import 'package:ecommerce/screens/wishlist.dart';
@@ -124,9 +125,7 @@ class BackLayerMenu extends StatelessWidget {
                   navigateTo(context, WishList.routeName);
                 }, 'Wishlist', 2),
                 const SizedBox(height: 10.0),
-                content(context, () {
-                  navigateTo(context, Feeds.routeName);
-                }, 'Upload a new product', 3),
+                content(context, ()=> navigateTo(context, UploadProductForm.routeName) , 'Upload a new product', 3),
               ],
             ),
           ),

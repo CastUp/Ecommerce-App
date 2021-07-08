@@ -1,4 +1,5 @@
 import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/widgets/feeds.dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
@@ -94,7 +95,11 @@ class _FeedProductsState extends State<FeedProducts> {
                         child: Icon(Icons.more_horiz, color: Colors.grey,),
                         splashColor: Colors.yellow.shade300,
                         borderRadius: BorderRadius.circular(20),
-                        onTap: (){Toast.show("${widget.index}", context);},
+                        onTap: ()=> showDialog(
+                            context: context,
+                            builder: (context)
+                            => FeedDialog(index: widget.index,listProduct: widget.listProduct,),
+                        ),
                       ),
                     )
                   ],

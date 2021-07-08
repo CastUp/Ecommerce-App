@@ -57,13 +57,13 @@ class Products with ChangeNotifier{
 
 
 
+
   List<Product> findByCategory (String categoryName){
 
      List _categoryList = _products.where((element) => element.productCategoryName.toLowerCase().contains(categoryName.toLowerCase())).toList();
 
      return _categoryList ;
   }
-
 
   List<Product> findByBrand (String brandName){
 
@@ -72,6 +72,14 @@ class Products with ChangeNotifier{
     return _brandlist ;
   }
 
-
   List<Product> get popularProduct => _products.where((element) => element.isPopular).toList() ;
+
+  List<Product> searchQuery(String named){
+
+    List _categoryList = _products.where((element) => element.brand.toLowerCase().contains(named.toLowerCase())).toList();
+
+    return _categoryList ;
+  }
+
 }
+

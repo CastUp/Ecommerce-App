@@ -35,7 +35,7 @@ class CartProvider with ChangeNotifier{
           imageUrl: imageUrl,
         ));
     else
-      Toast.show("تم الاضافه من قبل", context);
+      _cartItems.removeAt(index);
 
     notifyListeners();
   }

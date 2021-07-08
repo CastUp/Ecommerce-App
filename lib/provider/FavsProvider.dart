@@ -21,7 +21,7 @@ class FavsProvider with ChangeNotifier{
     return totalAmount;
   }
 
-  void addProductToFavs(BuildContext context , {String productId , double price , String title , String imageUrl}){
+  void addProductToFavs(BuildContext context, {String productId , double price , String title , String imageUrl}){
 
     int index = _favsItems.indexWhere((element) => element.id.contains(productId));
 
@@ -33,7 +33,8 @@ class FavsProvider with ChangeNotifier{
         imageUrl: imageUrl,
       ));
     else
-      Toast.show("تم الاضافه من قبل", context);
+      _favsItems.removeAt(index);
+
     notifyListeners();
   }
 
